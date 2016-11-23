@@ -7,6 +7,7 @@ cache:
   - node_modules
 
 before_install:
+- echo -e "machine github.com\n login $GITHUB_ACCESS_TOKEN" >> ~/.netrc
 - git submodule add --force git@github.com:RomansBermans/google-cloud-node-cluster-environment.git environment/private
 
 before_script:
