@@ -5,8 +5,8 @@ Run a Node.js Cluster on Google Cloud Platform.
 ## Setup
 
 ### Travis CI (optional)
-1. Create a private repository (e.g. google-cloud-node-cluster-environment) on GitHub where you will store your Google Cloud Platform private keys and settings.
-2. Create an account on [Travis CI](https://travis-ci.org/) and activate your repository.
+1. Create an account on [Travis CI](https://travis-ci.org/) and activate your repository.
+2. Create a private repository (e.g. google-cloud-node-cluster-environment) on GitHub where you will store your Google Cloud Platform private keys and settings.
 
 ### Google Cloud Platform
 1. Install [Cloud SDK](https://cloud.google.com/sdk/downloads).
