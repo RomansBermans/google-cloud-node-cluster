@@ -1,0 +1,41 @@
+language: node_js
+node_js:
+- '6.9'
+
+cache:
+  directories:
+  - node_modules
+
+before_install:
+- git submodule add --force git@github.com:RomansBermans/google-cloud-node-cluster-environment.git environment/private
+
+before_script:
+- if [[ "$TRAVIS_BRANCH" = "master" ]]; then
+    export ENVIRONMENT=prod;
+  fi
+- if [[ "$TRAVIS_BRANCH" = "develop" ]]; then
+    export ENVIRONMENT=stag;
+  fi
+
+- if [[ "$ENVIRONMENT" ]]; then
+    export PROJECT=$(node -p -e "require('./environment/private/$ENVIRONMENT/settings').project");
+  fi
+
+- export VERSION=$(node -p -e "require('./package').version")-$TRAVIS_BUILD_NUMBER;
+- export MESSAGE="$VERSION \"$(git log --format=%B --no-merges -n 1)\"";
+- export VERSION=${VERSION//[^[:alnum:]^-]};
+
+- if [[ "$PROJECT" && "$MESSAGE" == *"[deploy]"* ]]; then
+    export DEPLOY=true;
+  fi
+
+deploy:
+- provider: gae
+  skip_cleanup: true
+  keyfile: environment/private/$ENVIRONMENT/travis.server.key.json
+  config: server.$ENVIRONMENT.yml
+  project: $PROJECT
+  version: $VERSION
+  on:
+    all_branches: true
+    condition: $DEPLOY

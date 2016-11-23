@@ -1,0 +1,25 @@
+service: default
+runtime: nodejs
+vm: true
+
+env_variables:
+  NODE_ENV: stag
+  SERVICE: server/server.js
+
+resources:
+  cpu: 2
+  memory_gb: 1.0
+
+manual_scaling:
+  instances: 1
+
+handlers:
+- url: /.*
+  script: server
+  secure: always
+
+skip_files:
+- ^\.git/.*
+- ^coverage/(.*/)?
+- ^node_modules/(.*/)?
+- ^test/(.*/)?

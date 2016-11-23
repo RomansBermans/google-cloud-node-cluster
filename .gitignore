@@ -1,0 +1,9 @@
+.DS_Store
+
+coverage
+node_modules
+
+environment/private
+environment/public/dev
+
+*.log

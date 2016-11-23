@@ -1,0 +1,22 @@
+service: default
+runtime: nodejs
+vm: true
+
+env_variables:
+  NODE_ENV: prod
+  SERVICE: server/server.js
+
+resources:
+  cpu: 2
+  memory_gb: 1.0
+
+handlers:
+- url: /.*
+  script: server
+  secure: always
+
+skip_files:
+- ^\.git/.*
+- ^coverage/(.*/)?
+- ^node_modules/(.*/)?
+- ^test/(.*/)?
