@@ -15,6 +15,7 @@ Run a Node.js Cluster on Google Cloud Platform.
     1. Create a service account on [Google Cloud Platform > IAM](https://console.cloud.google.com/iam-admin/serviceaccounts) with Project > Editor role and download the JSON private key.
     2. Rename the downloaded private key to `travis.server.key.json` and save it in the `environment/private/prod` folder in your private GitHub repository (e.g. google-cloud-node-cluster-environment).
     3. Save the `settings.json` file containing `{ "project": "GOOGLE-CLOUD-PLATFORM-PROJECT-ID" }` in the `environment/private/prod` folder in your private GitHub repository (e.g. google-cloud-node-cluster-environment).
+    4. Enable [Google Cloud Platform > App Engine Admin API](https://console.cloud.google.com/apis/api/appengine/overview).
 
 
 ## Install
