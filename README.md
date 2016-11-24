@@ -16,7 +16,7 @@ Run a Node.js Cluster on Google Cloud Platform.
     4. Rename the downloaded private key to `travis.server.prod.key.json` and save it in the `environment/private` folder
     5. `gem install travis`
     6. `travis login`
-    7. `cd environment && tar cvf private.tar private && travis encrypt-file private.tar --add && rm -rf private.tar && cd ..`
+    7. `tar cvf environment/private.tar -C environment/private . && travis encrypt-file environment/private.tar environment/private.tar.enc -f && rm -f environment/private.tar`
 
 ## Install
 ```

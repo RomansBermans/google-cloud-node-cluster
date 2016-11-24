@@ -7,10 +7,8 @@ cache:
   - node_modules
 
 before_install:
-- cd environment
-- openssl aes-256-cbc -K $encrypted_54779b2bd156_key -iv $encrypted_54779b2bd156_iv -in private.tar.enc -out private.tar -d
-- tar xvf private.tar
-- cd ..
+- openssl aes-256-cbc -K $encrypted_713c90b2403d_key -iv $encrypted_713c90b2403d_iv -in environment/private.tar.enc -out environment/private.tar -d
+- mkdir environment/private && tar xvf environment/private.tar -C environment/private
 
 before_script:
 - if [[ "$TRAVIS_BRANCH" = "master" ]]; then
