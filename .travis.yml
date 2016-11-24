@@ -11,22 +11,22 @@ before_install:
 
 before_script:
 - if [[ "$TRAVIS_BRANCH" = "master" ]]; then
-    export ENVIRONMENT=prod
+    export ENVIRONMENT=prod;
   fi
 - if [[ "$TRAVIS_BRANCH" = "develop" ]]; then
-    export ENVIRONMENT=stag
+    export ENVIRONMENT=stag;
   fi
 
 - if [[ "$ENVIRONMENT" ]]; then
-    export PROJECT=$(node -p -e "require('./environment/private/travis.server.$ENVIRONMENT.key').project_id")
+    export PROJECT=$(node -p -e "require('./environment/private/travis.server.$ENVIRONMENT.key').project_id");
   fi
 
-- export VERSION=$(node -p -e "require('./package').version")-$TRAVIS_BUILD_NUMBER
-- export MESSAGE="$VERSION \"$(git log --format=%B --no-merges -n 1)\""
-- export VERSION=${VERSION//[^[:alnum:]^-]}
+- export VERSION=$(node -p -e "require('./package').version")-$TRAVIS_BUILD_NUMBER;
+- export MESSAGE="$VERSION \"$(git log --format=%B --no-merges -n 1)\"";
+- export VERSION=${VERSION//[^[:alnum:]^-]};
 
 - if [[ "$PROJECT" && "$MESSAGE" == *"[deploy]"* ]]; then
-    export DEPLOY=true
+    export DEPLOY=true;
   fi
 
 deploy:
