@@ -1,6 +1,6 @@
 /* */
 
-const { utils, settings } = require('../config');
+const { settings, utils } = require('../config');
 
 const chai = require('chai');
 const http = require('chai-http');
@@ -17,8 +17,8 @@ chai.use(http);
 
 
 module.exports = {
-  utils,
   settings,
+  utils,
   chai,
   expect,
 };

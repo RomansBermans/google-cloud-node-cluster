@@ -1,0 +1,13 @@
+{
+  "port": 5000,
+
+  "logger": {
+    "transport": "Console",
+    "config": {
+      "level": "debug",
+      "prettyPrint": false,
+      "colorize": true,
+      "json": false
+    }
+  }
+}

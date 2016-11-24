@@ -7,32 +7,32 @@ cache:
   - node_modules
 
 before_install:
-- git submodule add --force https://$GITHUB_ACCESS_TOKEN@github.com/RomansBermans/google-cloud-node-cluster-environment.git environment/private
+- cd environment && openssl aes-256-cbc -K $encrypted_54779b2bd156_key -iv $encrypted_54779b2bd156_iv -in private.tar.enc -out private.tar -d && tar xvf private.tar && cd ..
 
 before_script:
 - if [[ "$TRAVIS_BRANCH" = "master" ]]; then
-    export ENVIRONMENT=prod;
+    export ENVIRONMENT=prod
   fi
 - if [[ "$TRAVIS_BRANCH" = "develop" ]]; then
-    export ENVIRONMENT=stag;
+    export ENVIRONMENT=stag
   fi
 
 - if [[ "$ENVIRONMENT" ]]; then
-    export PROJECT=$(node -p -e "require('./environment/private/$ENVIRONMENT/settings').project");
+    export PROJECT=$(node -p -e "require('./environment/private/travis.server.$ENVIRONMENT.key').project_id")
   fi
 
-- export VERSION=$(node -p -e "require('./package').version")-$TRAVIS_BUILD_NUMBER;
-- export MESSAGE="$VERSION \"$(git log --format=%B --no-merges -n 1)\"";
-- export VERSION=${VERSION//[^[:alnum:]^-]};
+- export VERSION=$(node -p -e "require('./package').version")-$TRAVIS_BUILD_NUMBER
+- export MESSAGE="$VERSION \"$(git log --format=%B --no-merges -n 1)\""
+- export VERSION=${VERSION//[^[:alnum:]^-]}
 
 - if [[ "$PROJECT" && "$MESSAGE" == *"[deploy]"* ]]; then
-    export DEPLOY=true;
+    export DEPLOY=true
   fi
 
 deploy:
 - provider: gae
   skip_cleanup: true
-  keyfile: environment/private/$ENVIRONMENT/travis.server.key.json
+  keyfile: environment/private/travis.server.$ENVIRONMENT.key.json
   config: server.$ENVIRONMENT.yml
   project: $PROJECT
   version: $VERSION
