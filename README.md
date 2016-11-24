@@ -14,9 +14,9 @@ Run a Node.js Cluster on Google Cloud Platform.
     3. Create a service account on [Google Cloud Platform > IAM](https://console.cloud.google.com/iam-admin/serviceaccounts) with Project > Editor role and download the JSON private key
     <br/><img src="https://cloud.githubusercontent.com/assets/358467/20593572/e0fa2134-b22a-11e6-8dbc-35a954f80bcb.png" width="640" />
     4. Rename the downloaded private key to `travis.server.prod.key.json` and save it in the `environment/private` folder
-    5. Run `gem install travis`
-    6. Run `travis login`
-    7. Run `cd environment && tar cvf private.tar private && travis encrypt-file private.tar --add && rm -rf private.tar && cd ..`
+    5. `gem install travis`
+    6. `travis login`
+    7. `cd environment && tar cvf private.tar private && travis encrypt-file private.tar --add && rm -rf private.tar && cd ..`
 
 ## Install
 ```
@@ -40,10 +40,11 @@ npm test
 
 ## Deploy
 
-### Using Command Line
+### Command Line
+Replace GOOGLE-CLOUD-PLATFORM-PROJECT-ID with your Project ID and execute:
 ```
 export ENVIRONMENT=prod && export PROJECT=GOOGLE-CLOUD-PLATFORM-PROJECT-ID && export VERSION=$(node -p -e "require('./package').version") && export VERSION=${VERSION//[^[:alnum:]^-]} && npm run deploy
 ```
 
-### Using Travis CI (optional)
+### Travis CI
 Add `[deploy]` to you git commit message.
