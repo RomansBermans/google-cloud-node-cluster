@@ -2,7 +2,6 @@
 
 const environment = process.env.NODE_ENV || 'dev';
 
-const settings = require(`../environment/public/settings.${environment}`);
 const { version } = require('../package');
 
 const assign = (...a) => require('assign-deep')({}, ...a);
@@ -16,6 +15,8 @@ if (/stag|prod/.test(environment)) {
 
 /* ************************************************************ */
 
+
+const settings = require(`../environment/public/settings.${environment}`);
 
 settings.port = process.env.PORT || settings.port;
 
@@ -32,8 +33,8 @@ const logger = new winston.Logger({
 
 const $ = {
   environment,
-  settings,
   version,
+  settings,
   logger,
   utils: {
     assign,

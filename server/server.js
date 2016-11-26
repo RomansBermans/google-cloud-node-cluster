@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 
-const { environment, settings, version, logger } = require('./config');
+const { environment, version, settings, logger } = require('./config');
 
 const cluster = require('cluster');
 const os = require('os');
