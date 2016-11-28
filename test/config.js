@@ -1,8 +1,12 @@
 /* */
 
-const environment = process.env.NODE_ENV = 'test';
+const environment = /test/.test(process.env.NODE_ENV) ? 'test' : 'dev';
 
 const { utils } = require('../server/config');
+
+
+/* ************************************************************ */
+
 
 const settings = require(`../environment/public/settings.${environment}`);
 

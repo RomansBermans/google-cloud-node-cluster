@@ -11,20 +11,21 @@ before_install:
 - mkdir environment/private && tar xvf environment/private.tar -C environment/private
 
 before_script:
+- export NODE_ENV="test"
+- export VERSION="$(node -p -e "require('./package').version")-$TRAVIS_BUILD_NUMBER"
+- export MESSAGE="$VERSION \"$(git log --format=%B --no-merges -n 1)\""
+- export VERSION="${VERSION//[^[:alnum:]^-]}"
+
 - if [[ "$TRAVIS_BRANCH" = "master" ]]; then
-    export ENVIRONMENT=prod;
+    export ENVIRONMENT="prod";
   fi
 - if [[ "$TRAVIS_BRANCH" = "develop" ]]; then
-    export ENVIRONMENT=stag;
+    export ENVIRONMENT="stag";
   fi
 
 - if [[ "$ENVIRONMENT" ]]; then
-    export PROJECT=$(node -p -e "require('./environment/private/travis.server.$ENVIRONMENT.key').project_id");
+    export PROJECT="$(node -p -e "require('./environment/private/travis.server.$ENVIRONMENT.key').project_id")";
   fi
-
-- export VERSION=$(node -p -e "require('./package').version")-$TRAVIS_BUILD_NUMBER;
-- export MESSAGE="$VERSION \"$(git log --format=%B --no-merges -n 1)\"";
-- export VERSION=${VERSION//[^[:alnum:]^-]};
 
 - if [[ "$PROJECT" && "$MESSAGE" == *"[deploy]"* ]]; then
     export DEPLOY=true;
