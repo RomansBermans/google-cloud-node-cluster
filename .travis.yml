@@ -31,6 +31,8 @@ before_script:
     export DEPLOY=true;
   fi
 
+- echo VERSION="$VERSION"$'\n'MESSAGE="$MESSAGE"$'\n'ENVIRONMENT="$ENVIRONMENT"$'\n'PROJECT="$PROJECT";
+
 deploy:
 - provider: gae
   skip_cleanup: true
