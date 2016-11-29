@@ -12,26 +12,22 @@ before_install:
 
 before_script:
 - export NODE_ENV="test"
+
 - export VERSION="$(node -p -e "require('./package').version")-$TRAVIS_BUILD_NUMBER"
-- export MESSAGE="$VERSION \"$(git log --format=%B --no-merges -n 1)\""
+- export MESSAGE="$VERSION $(git log --format=%B --no-merges -n 1)"
 - export VERSION="${VERSION//[^[:alnum:]^-]}"
 
-- if [[ "$TRAVIS_BRANCH" = "master" ]]; then
-    export ENVIRONMENT="prod";
-  fi
-- if [[ "$TRAVIS_BRANCH" = "develop" ]]; then
-    export ENVIRONMENT="stag";
-  fi
+- export ENVIRONMENT="$(node -p -e "JSON.parse('{\"master\":\"prod\",\"develop\":\"stag\"}').${TRAVIS_BRANCH:-undefined} || ''")"
 
 - if [[ "$ENVIRONMENT" ]]; then
     export PROJECT="$(node -p -e "require('./environment/private/travis.server.$ENVIRONMENT.key').project_id")";
   fi
 
-- if [[ "$PROJECT" && "$MESSAGE" == *"[deploy]"* ]]; then
-    export DEPLOY=true;
+- if [[ "$PROJECT" ]]; then
+    export DEPLOY="$(node -p -e "/\[deploy\]/.test('$MESSAGE')")";
   fi
 
-- echo VERSION="$VERSION"$'\n'MESSAGE="$MESSAGE"$'\n'ENVIRONMENT="$ENVIRONMENT"$'\n'PROJECT="$PROJECT";
+- echo BRANCH=${TRAVIS_BRANCH:-undefined}$'\n'MESSAGE=${MESSAGE:-undefined}$'\n'ENVIRONMENT=${ENVIRONMENT:-undefined}$'\n'PROJECT=${PROJECT:-undefined}$'\n'VERSION=${VERSION:-undefined}
 
 deploy:
 - provider: gae
@@ -42,4 +38,4 @@ deploy:
   version: $VERSION
   on:
     all_branches: true
-    condition: $DEPLOY
+    condition: "$DEPLOY = true"
