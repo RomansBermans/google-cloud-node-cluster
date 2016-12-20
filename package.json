@@ -49,7 +49,7 @@
       "arrow-parens": ["error", "as-needed"],
       "comma-dangle": ["error", "always-multiline"],
       "import/no-dynamic-require": "off",
-      "import/no-extraneous-dependencies": ["error", { "devDependencies": true}],
+      "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
       "max-len": ["error", 240],
       "no-param-reassign": ["error", { "props": false }]
     }
