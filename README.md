@@ -7,8 +7,8 @@ Run a Node.js Cluster with Restify on Google Cloud Platform.
 ### Google Cloud Platform
 1. Install [Google Cloud SDK](https://cloud.google.com/sdk/downloads)
 2. Create a project on [Google Cloud Platform](https://console.cloud.google.com) and note down the Project ID
-3. Enable [Google Cloud Platform > Billing](https://console.cloud.google.com/billing)
 <br/><img src="https://cloud.githubusercontent.com/assets/358467/20582878/e34acaae-b1dc-11e6-85b6-5c3b1c694a69.png" width="511" />
+3. Enable [Google Cloud Platform > Billing](https://console.cloud.google.com/billing)
 4. If using Travis CI:
     1. Create an account on [Travis CI](https://travis-ci.org/) and activate your repository
     2. Enable [Google Cloud Platform > App Engine Admin API](https://console.cloud.google.com/apis/api/appengine/overview)
