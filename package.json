@@ -14,12 +14,7 @@
     "test": "istanbul cover _mocha -- test/server -R list --recursive --ui bdd --slow 100 --timeout 1000",
     "posttest": "nsp check",
 
-    "deploy": "gcloud app deploy server.$ENVIRONMENT.yml --project $PROJECT --version $VERSION",
-
-    "clean": "npm prune",
-    "outdated": "npm outdated --depth=0",
-
-    "postversion": "git push && git push --tags"
+    "deploy": "gcloud app deploy server.$ENVIRONMENT.yml --project $PROJECT --version $VERSION"
   },
   "dependencies": {
     "@google/cloud-debug": "^0.9.0",
