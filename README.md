@@ -10,7 +10,6 @@ Run a Node.js Cluster with Restify on Google Cloud Platform.
     1. Create an account on [Travis CI](https://travis-ci.org/) and activate your repository
     2. Enable [Google Cloud Platform > App Engine Admin API](https://console.cloud.google.com/apis/api/appengine/overview)
     3. Create a service account on [Google Cloud Platform > IAM](https://console.cloud.google.com/iam-admin/serviceaccounts) with Project > Editor role and download the JSON private key
-    <br/><img src="https://cloud.githubusercontent.com/assets/358467/20593572/e0fa2134-b22a-11e6-8dbc-35a954f80bcb.png" width="640" />
     4. Rename the downloaded private key to `travis.server.prod.key.json` and save it in the `environment/private` folder
     5. Execute `gem install travis`
     6. Execute `travis login`
