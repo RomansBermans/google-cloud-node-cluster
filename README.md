@@ -3,8 +3,6 @@
 Run a Node.js Cluster with Restify on Google Cloud Platform.
 
 ## Setup
-
-### Google Cloud Platform
 1. Install [Google Cloud SDK](https://cloud.google.com/sdk/downloads)
 2. Create a project on [Google Cloud Platform](https://console.cloud.google.com) and note down the Project ID
 <br/><img src="https://cloud.githubusercontent.com/assets/358467/20582878/e34acaae-b1dc-11e6-85b6-5c3b1c694a69.png" width="511" />
@@ -42,11 +40,11 @@ npm test
 
 ## Deploy
 
-### Command Line
+#### Command Line
 Replace GOOGLE-CLOUD-PLATFORM-PROJECT-ID with your Project ID and execute the following command.
 ```
 export ENVIRONMENT=prod && export PROJECT=GOOGLE-CLOUD-PLATFORM-PROJECT-ID && export VERSION=$(node -p -e "require('./package').version") && export VERSION=${VERSION//[^[:alnum:]^-]} && npm run deploy
 ```
 
-### Travis CI
+#### Travis CI
 Add `[deploy]` to you git commit message.
