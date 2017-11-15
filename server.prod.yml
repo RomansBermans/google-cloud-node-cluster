@@ -1,6 +1,6 @@
 service: default
 runtime: nodejs
-vm: true
+env: flex
 
 env_variables:
   NODE_ENV: prod
