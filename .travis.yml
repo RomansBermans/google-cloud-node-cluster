@@ -36,6 +36,7 @@ deploy:
   config: server.$ENVIRONMENT.yml
   project: $PROJECT
   version: $VERSION
+  verbosity: error
   on:
     all_branches: true
     condition: "$DEPLOY = true"
