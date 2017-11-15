@@ -1,57 +1,37 @@
 {
   "name": "google-cloud-node-cluster",
   "version": "0.0.0-alpha.0",
-  "main": "server/server.js",
-  "engines": {
-    "node": ">=6.9.0"
-  },
+  "main": "server.js",
   "scripts": {
     "start": "node ${SERVICE:-.}",
 
     "develop": "nodemon .",
 
-    "pretest": "eslint --ignore-path .gitignore .",
-    "test": "istanbul cover _mocha -- test/server -R list --recursive --ui bdd --slow 100 --timeout 1000",
+    "pretest": "eslint --ext .js .",
+    "test": "NODE_ENV=test istanbul cover _mocha -- test/server -R spec --recursive --ui bdd --slow 100 --timeout 1000 --exit",
     "posttest": "nsp check",
 
     "deploy": "gcloud app deploy server.$ENVIRONMENT.yml --project $PROJECT --version $VERSION"
   },
   "dependencies": {
-    "@google/cloud-debug": "^0.9.0",
-    "@google/cloud-errors": "^0.1.0",
-    "@google/cloud-trace": "^0.5.10",
-    "assign-deep": "0.4.5",
-    "restify": "^4.3.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
     "winston": "^2.3.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.1.2",
     "chai-http": "^3.0.0",
-    "eslint": "^3.10.2",
-    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.2.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.1.2",
+    "mocha": "^4.0.1",
     "nodemon": "^1.11.0",
-    "nsp": "^2.6.2"
-  },
-  "eslintConfig": {
-    "extends": "airbnb-base",
-    "env": {
-      "mocha": true
-    },
-    "rules": {
-      "arrow-parens": ["error", "as-needed"],
-      "comma-dangle": ["error", "always-multiline"],
-      "import/no-dynamic-require": "off",
-      "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-      "max-len": ["error", 240],
-      "no-param-reassign": ["error", { "props": false }]
-    }
+    "nsp": "^3.1.0"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:RomansBermans/google-cloud-node-cluster.git"
+    "url": "https://github.com/RomansBermans/google-cloud-node-cluster.git"
   },
   "bugs": {
     "url": "https://github.com/RomansBermans/google-cloud-node-cluster/issues"

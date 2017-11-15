@@ -1,21 +1,44 @@
-/* eslint-disable global-require */
+/* */
 
-const { environment, version, settings, logger } = require('./config');
 
 const cluster = require('cluster');
 const os = require('os');
-const restify = require('restify');
 
-const errors = require('@google/cloud-errors').start();
+const cors = require('cors')({ origin: true });
+const express = require('express');
+
+const winston = require('winston');
+
+
+const environment = process.env.NODE_ENV || 'dev';
+
+const { version } = require('./package');
+
+const settings = require(`./environment/public/settings.${environment}`); // eslint-disable-line
 
 
 /* ************************************************************ */
 
 
+settings.port = process.env.PORT || settings.port;
+
+
+const logger = new winston.Logger({
+  levels: winston.config.npm.levels,
+  colors: winston.config.npm.colors,
+  transports: [new winston.transports[settings.logger.transport](settings.logger.config)],
+});
+
+
 const workers = os.cpus().length;
+
+
+/* ************************************************************ */
+
 
 if (!/test/.test(environment) && cluster.isMaster) {
   logger.profile(`${environment}.master.start workers=${workers}`);
+
 
   cluster.on('online', worker => {
     logger.info(`${environment}.master.event.online worker=${worker.id}`);
@@ -26,9 +49,11 @@ if (!/test/.test(environment) && cluster.isMaster) {
     cluster.fork();
   });
 
+
   for (let i = 0; i < workers; i += 1) {
     cluster.fork();
   }
+
 
   logger.profile(`${environment}.master.start workers=${workers}`);
 } else {
@@ -37,18 +62,14 @@ if (!/test/.test(environment) && cluster.isMaster) {
   logger.profile(`${environment}.worker.${id}.start`);
 
 
-  const server = module.exports = restify.createServer();
+  const server = express();
 
 
-  server.use(errors.restify(server));
-  server.use(restify.CORS());
-  server.use(restify.queryParser());
-  server.use(restify.bodyParser());
-
-
-  server.get('/', (req, res) =>
-    res.json({ environment, version, workers })
-  );
+  server.get('/', (req, res) => {
+    cors(req, res, () => {
+      res.json({ environment, version, workers });
+    });
+  });
 
   server.get('/kill', (req, res) => {
     if (!/test/.test(environment)) {
@@ -57,13 +78,16 @@ if (!/test/.test(environment) && cluster.isMaster) {
     res.json({ worker: id });
   });
 
-  server.get('/error', (req, res) =>
-    res.json(500, { error: { status: 500, code: 'Error' } })
-  );
+  server.get('/error', (req, res) => {
+    res.status(500).json({ status: 500, code: 'Error' });
+  });
 
 
   server.listen(settings.port, () => {
     logger.info(`${environment}.worker.${id}.address`, server.url);
     logger.profile(`${environment}.worker.${id}.start`);
   });
+
+
+  module.exports = server;
 }

@@ -4,7 +4,7 @@ vm: true
 
 env_variables:
   NODE_ENV: stag
-  SERVICE: server/server.js
+  SERVICE: server.js
 
 resources:
   cpu: 2
