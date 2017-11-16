@@ -13,12 +13,12 @@ skip_files:
 
 handlers:
 - url: /.*
-  script: server
+  script: server.js
   secure: always
 
 resources:
   cpu: 2
-  memory_gb: 1.0
+  memory_gb: 2.0
 
 manual_scaling:
   instances: 1

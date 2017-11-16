@@ -48,9 +48,9 @@ describe('server', () => {
     success(res);
   });
 
-  it('- GET /error', async () => {
+  it('- GET /break', async () => {
     try {
-      await chai.request(server).get('/error').set('origin', 'http://test.com');
+      await chai.request(server).get('/break').set('origin', 'http://test.com');
       expect.fail();
     } catch (err) {
       expect(err).not.to.have.header('access-control-allow-origin', 'http://test.com');

@@ -41,11 +41,11 @@ if (!/test/.test(environment) && cluster.isMaster) {
 
 
   cluster.on('online', worker => {
-    logger.info(`${environment}.master.event.online worker=${worker.id}`);
+    logger.info(`${environment}.master.worker.online id=${worker.id}`);
   });
 
   cluster.on('exit', (worker, code, signal) => {
-    logger.info(`${environment}.master.event.exit worker=${worker.id} code=${code} signal=${signal}`);
+    logger.info(`${environment}.master.worker.exit   id=${worker.id} code=${signal || code}`);
     cluster.fork();
   });
 
@@ -59,7 +59,7 @@ if (!/test/.test(environment) && cluster.isMaster) {
 } else {
   const id = cluster.worker ? cluster.worker.id : process.pid;
 
-  logger.profile(`${environment}.worker.${id}.start`);
+  logger.profile(`${environment}.worker.start id=${id}`);
 
 
   const server = express();
@@ -78,14 +78,13 @@ if (!/test/.test(environment) && cluster.isMaster) {
     res.json({ worker: id });
   });
 
-  server.get('/error', (req, res) => {
+  server.get('/break', (req, res) => {
     res.status(500).json({ status: 500, code: 'Error' });
   });
 
 
   server.listen(settings.port, () => {
-    logger.info(`${environment}.worker.${id}.address`, server.url);
-    logger.profile(`${environment}.worker.${id}.start`);
+    logger.profile(`${environment}.worker.start id=${id}`);
   });
 
 
