@@ -1,4 +1,3 @@
-service: default
 runtime: nodejs
 env: flex
 
@@ -6,17 +5,17 @@ env_variables:
   NODE_ENV: prod
   SERVICE: server.js
 
-resources:
-  cpu: 2
-  memory_gb: 1.0
+skip_files:
+- ^\.git/.*
+- ^coverage/(.*/)?
+- ^node_modules/(.*/)?
+- ^test/(.*/)?
 
 handlers:
 - url: /.*
   script: server
   secure: always
 
-skip_files:
-- ^\.git/.*
-- ^coverage/(.*/)?
-- ^node_modules/(.*/)?
-- ^test/(.*/)?
+resources:
+  cpu: 2
+  memory_gb: 1.0
