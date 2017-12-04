@@ -1,6 +1,6 @@
 # google-cloud-node-cluster [![Build Status](https://travis-ci.org/RomansBermans/google-cloud-node-cluster.svg?branch=master)](https://travis-ci.org/RomansBermans/google-cloud-node-cluster)
 
-Run a Node.js Cluster with Restify on Google Cloud Platform.
+Run a Node.js Cluster with Express on Google Cloud Platform.
 
 ## Setup
 1. Install [Google Cloud SDK](https://cloud.google.com/sdk/downloads)
