@@ -1,4 +1,4 @@
-# google-cloud-node-cluster [![Build Status](https://travis-ci.org/RomansBermans/google-cloud-node-cluster.svg?branch=master)](https://travis-ci.org/RomansBermans/google-cloud-node-cluster)
+# google-cloud-node-cluster
 
 Run a Node.js Cluster with Express on Google Cloud Platform.
 
